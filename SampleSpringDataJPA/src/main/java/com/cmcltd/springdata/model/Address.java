@@ -17,14 +17,14 @@ package com.cmcltd.springdata.model;
 
 import javax.persistence.Entity;
 
-import org.springframework.util.Assert;
+import lombok.Getter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.util.Assert;
 
 
 @Entity
 public class Address extends AbstractEntity {
-	private String street, city, country;
+	@Getter private String street, city, country;
 
 	/**
 	 * Creates a new {@link Address} from the given street, city and country.
@@ -58,30 +58,4 @@ public class Address extends AbstractEntity {
 		return new Address(this.street, this.city, this.country);
 	}
 
-	/**
-	 * Returns the street.
-	 * 
-	 * @return
-	 */
-	public String getStreet() {
-		return street;
-	}
-
-	/**
-	 * Returns the city.
-	 * 
-	 * @return
-	 */
-	public String getCity() {
-		return city;
-	}
-
-	/**
-	 * Returns the country.
-	 * 
-	 * @return
-	 */
-	public String getCountry() {
-		return country;
-	}
 }

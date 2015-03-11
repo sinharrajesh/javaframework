@@ -20,9 +20,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+
+import lombok.Getter;
 
 import org.springframework.util.Assert;
 
@@ -35,13 +40,18 @@ import org.springframework.util.Assert;
 public class Product extends AbstractEntity {
 
 	@Column(nullable = false)
-	private String name;
-	private String description;
+	@Getter private String name;
+	@Getter private String description;
 
 	@Column(nullable = false)
-	private BigDecimal price;
+	@Getter private BigDecimal price;
 
 	@ElementCollection
+	@CollectionTable(
+	        name="PRODUCT_ATTRIBUTES",
+	        joinColumns=@JoinColumn(name="product_id"))
+	@MapKeyColumn(name="name")
+	@Column(name="value")
 	private Map<String, String> attributes = new HashMap<String, String>();
 
 	/**
@@ -92,24 +102,7 @@ public class Product extends AbstractEntity {
 		}
 	}
 
-	/**
-	 * Returns the {@link Product}'s name.
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Returns the {@link Product}'s description.
-	 * 
-	 * @return
-	 */
-	public String getDescription() {
-		return description;
-	}
-
+	
 	/**
 	 * Returns all the custom attributes of the {@link Product}.
 	 * 
@@ -119,12 +112,4 @@ public class Product extends AbstractEntity {
 		return Collections.unmodifiableMap(attributes);
 	}
 
-	/**
-	 * Returns the price of the {@link Product}.
-	 * 
-	 * @return
-	 */
-	public BigDecimal getPrice() {
-		return price;
-	}
 }

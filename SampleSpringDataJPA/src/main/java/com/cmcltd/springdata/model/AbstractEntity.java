@@ -62,11 +62,7 @@ public class AbstractEntity {
 		return version;
 	}
 
-	public String getRealClassName() {
-
-		return (this.getClass().getCanonicalName());
-
-	}
+	
 
 	/*
 	 * (non-Javadoc)

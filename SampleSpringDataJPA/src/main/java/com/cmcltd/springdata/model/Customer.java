@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
@@ -37,10 +38,10 @@ public class Customer extends AbstractEntity {
 
 	private String firstname, lastname;
 
-	@Column(unique = true)
-	private EmailAddress emailAddress;
+	@Column(name = "email")
+	private String emailAddress;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn(name = "customer_id")
 	private Set<Address> addresses = new HashSet<Address>();
 
@@ -50,13 +51,15 @@ public class Customer extends AbstractEntity {
 	 * @param firstname must not be {@literal null} or empty.
 	 * @param lastname must not be {@literal null} or empty.
 	 */
-	public Customer(String firstname, String lastname) {
+	public Customer(String firstname, String lastname, String emailAddress) {
 
 		Assert.hasText(firstname);
 		Assert.hasText(lastname);
-
+		Assert.hasText(emailAddress);
+		
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.emailAddress = emailAddress;
 	}
 
 	protected Customer() {
@@ -106,7 +109,7 @@ public class Customer extends AbstractEntity {
 	 * 
 	 * @return
 	 */
-	public EmailAddress getEmailAddress() {
+	public String getEmailAddress() {
 		return emailAddress;
 	}
 
@@ -115,7 +118,7 @@ public class Customer extends AbstractEntity {
 	 * 
 	 * @param emailAddress must not be {@literal null}.
 	 */
-	public void setEmailAddress(EmailAddress emailAddress) {
+	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
 

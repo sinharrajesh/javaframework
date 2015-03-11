@@ -15,6 +15,8 @@
  */
 package com.cmcltd.springdata.dao;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.Repository;
 
@@ -28,5 +30,9 @@ import com.cmcltd.springdata.model.EmailAddress;
  */
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long> {
 
-	Customer findByEmailAddress(EmailAddress emailAddress);
+	Customer findByEmailAddress(String emailAddress);
+	List<Customer> findByFirstname(String firstName);
+	List<Customer> findByLastname(String lastName);
+	List<Customer> findByFirstnameAndLastname(String firstName, String lastName);
+	
 }
