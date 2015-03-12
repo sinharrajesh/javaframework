@@ -15,6 +15,7 @@
  */
 package com.cmcltd.springdata.model;
 
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +25,10 @@ import javax.persistence.Version;
 
 /**
  * Base class to derive entity classes from.
- * 
- * @author Oliver Gierke
+ * @author Rajesh Sinha
  */
 @MappedSuperclass
+
 public class AbstractEntity {
 
 	@Id
