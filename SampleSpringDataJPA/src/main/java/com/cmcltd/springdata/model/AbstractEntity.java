@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 /**
@@ -30,7 +31,8 @@ import javax.persistence.Version;
 public class AbstractEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name="oraclesequence", sequenceName="IDGENERATOR_SEQ", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="oraclesequence")
 	private Long id;
 
 	@Version
@@ -61,8 +63,6 @@ public class AbstractEntity {
 	public int getVersion() {
 		return version;
 	}
-
-	
 
 	/*
 	 * (non-Javadoc)
